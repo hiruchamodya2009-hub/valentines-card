@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentines My Love 💗</title>
 
+<style>
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #ffd6e7, #ffc0d6);
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* title */
+.title {
+    position: absolute;
+    top: 60px;
+    font-size: 34px;
+    color: #ff4d88;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px #ff99bb; }
+    to { text-shadow: 0 0 25px #ff3385; }
+}
+
+/* envelope */
+.envelope {
+    width: 220px;
+    height: 150px;
+    background: #ff8fb1;
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: transform 0.5s;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.envelope:hover {
+    transform: scale(1.08);
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-bottom: 75px solid #ff6f9f;
+    transition: transform 0.8s;
+    transform-origin: top;
+}
+
+.envelope.open::before {
+    transform: rotateX(180deg);
+}
+
+/* letter */
+.letter {
+    position: absolute;
+    width: 420px;
+    height: 520px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    transform: translateY(200px) scale(0);
+    transition: transform 1s;
+    overflow-y: auto;
+}
+
+.letter.show {
+    transform: translateY(0px) scale(1);
+}
+
+/* typed text */
+#typedText {
+    white-space: pre-line;
+    font-size: 18px;
+    color: #444;
+}
+
+/* hearts */
+.heart {
+    position: absolute;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from { transform: translateY(-10vh); opacity: 1; }
+    to { transform: translateY(110vh); opacity: 0; }
+}
+
+/* "there's more" button */
+#moreBtn {
+    position: absolute;
+    bottom: 40px;
+    padding: 12px 20px;
+    font-size: 18px;
+    background: #ff4d88;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="title">happy valentines my love 💗</div>
+
+<div class="envelope" id="envelope" onclick="openLetter()"></div>
+
+<div class="letter" id="letter">
+<div id="typedText"></div>
+</div>
+
+<button id="moreBtn" onclick="startAnimation()">there's more for you…</button>
+
+<div id="animationScene" style="display:none;">
+<!-- kawaii animation will go here later -->
+</div>
+
+<script>
+const message = `To my love,
+
+Happy valentines day 💗
+
+You are my first valentine and
+I wish that you'd be my only valentine.
+Forever.
+
+I made this just for you,
+because you mean everything to me.
+
+Thank you for loving me the way you do.
+You make everything feel easier just by being you.
+
+Thank you for being patient with me, for listening to me, 
+and for staying by my side no matter what. 
+You’re my comfort, my safe place, and my favorite person.
+
+Im so greatful that you are mine <3
+
+I love you so so sooo muchhhhhhh!!!!!!
+
+— yours 💌`;
+
+let index = 0;
+
+function openLetter() {
+    document.getElementById("envelope").classList.add("open");
+
+    setTimeout(() => {
+        document.getElementById("letter").classList.add("show");
+        typeText();
+        createHearts();
+    }, 600);
+}
+
+function typeText() {
+    if (index < message.length) {
+        document.getElementById("typedText").innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeText, 25);
+    } else {
+        // show the "there's more" button
+        document.getElementById("moreBtn").style.display = "block";
+    }
+}
+
+function createHearts() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.innerHTML = "💗";
+        heart.classNa
